@@ -44,6 +44,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 빌드 결과물이 생성되는 폴더 경로를 정확하게 지정해야 합니다.
+          personal_token: ${{ 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 }}
           publish_dir: ./ToDoList/build
