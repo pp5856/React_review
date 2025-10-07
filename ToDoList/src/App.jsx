@@ -14,7 +14,7 @@ const mockData = [
   {
     id: 1,
     isDone: false,
-    content: '동아리 회의 9시',
+    content: '동아리 회의 10시',
     date: new Date().toLocaleDateString('sv-SE'),
   },
   {
