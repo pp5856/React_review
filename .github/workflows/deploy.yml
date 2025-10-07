@@ -50,4 +50,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # 빌드 결과물이 생성되는 폴더 경로를 정확하게 지정해야 합니다.
-          publish_dir: ./my-react-projects/todo-app/build # ⬅️ (수정!) CRA는 build, Vite는 dist 입니다.
+          publish_dir: ./ToDoList/build # ⬅️ (수정!) CRA는 build, Vite는 dist 입니다.
