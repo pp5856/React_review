@@ -1,9 +1,11 @@
 import './ToDoItem.css';
-const ToDoItem = ({ id, isDone, content, date, onUpdate }) => {
+const ToDoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
   const onChangeCheckBox = () => {
     onUpdate(id);
   };
-
+  const onClickDeleteItem = () => {
+    onDelete(id);
+  };
   return (
     <div className="ToDoItem">
       <input
@@ -13,7 +15,7 @@ const ToDoItem = ({ id, isDone, content, date, onUpdate }) => {
       ></input>
       <div className="ToDo">{content}</div>
       <div className="Date">{date}</div>
-      <button>삭제</button>
+      <button onClick={onClickDeleteItem}>삭제</button>
     </div>
   );
 };

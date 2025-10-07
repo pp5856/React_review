@@ -14,20 +14,26 @@ const mockData = [
   {
     id: 1,
     isDone: false,
-    content: '9시 동아리 회의',
+    content: '동아리 회의 9시',
     date: new Date().toLocaleDateString('sv-SE'),
   },
   {
     id: 2,
     isDone: false,
-    content: '2시 PT',
+    content: 'PT 2시',
+    date: new Date().toLocaleDateString('sv-SE'),
+  },
+  {
+    id: 3,
+    isDone: false,
+    content: '여자친구 만나기',
     date: new Date().toLocaleDateString('sv-SE'),
   },
 ];
 
 function App() {
   const [todos, setTodos] = useState(mockData);
-  const idRef = useRef(3);
+  const idRef = useRef(4);
 
   const onCreate = (content) => {
     const newTodo = {
@@ -47,11 +53,18 @@ function App() {
     );
   };
 
+  const onDelete = (targetId) => {
+    setTodos(
+      todos.filter((todo) => {
+        return todo.id !== targetId;
+      })
+    );
+  };
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} onUpdate={onUpdate} />
+      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
     </div>
   );
 }
