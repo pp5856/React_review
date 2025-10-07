@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages (Final Attempt)
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
 
 jobs:
   build-and-deploy:
@@ -21,9 +21,9 @@ jobs:
           cd ToDoList
           npm install
           npm run build
-      
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
-          publish_dir: ./ToDoList/build
+          publish_dir: ./ToDoList/dist
