@@ -1,0 +1,53 @@
+# 워크플로우의 이름을 정합니다. GitHub 'Actions' 탭에 이 이름이 표시됩니다.
+name: Deploy My-Todo-App to GitHub Pages
+
+# 언제 이 워크플로우를 실행할지 결정합니다.
+on:
+  # 'main' 브랜치에 'push' 이벤트가 발생했을 때 실행됩니다.
+  push:
+    branches: ["main"]
+
+# 워크플로우가 배포 작업을 수행할 수 있도록 권한을 설정합니다.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 실행될 작업(Job)들을 정의합니다.
+jobs:
+  # 'build-and-deploy' 라는 이름의 작업을 만듭니다.
+  build-and-deploy:
+    # 이 작업은 최신 버전의 Ubuntu 리눅스 환경에서 실행됩니다.
+    runs-on: ubuntu-latest
+    
+    # 작업의 단계(Step)들을 순서대로 정의합니다.
+    steps:
+      # 1. 저장소의 코드를 가상 환경으로 가져옵니다. (필수)
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      # 2. Node.js 환경을 설정합니다. 리액트 앱을 빌드하려면 필요합니다.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # 자신의 프로젝트와 호환되는 Node.js 버전을 적어주세요.
+          node-version: '20'
+
+      # 3. ⚠️ 프로젝트 폴더로 이동, 의존성 설치 및 빌드
+      - name: Install dependencies and build
+        run: |
+          cd ToDoList  # ⬅️ (수정!) 실제 리액트 프로젝트 폴더 경로를 적어주세요.
+          npm install
+          npm run build
+        # 만약 yarn을 사용한다면:
+        # cd my-react-projects/todo-app
+        # yarn install
+        # yarn build
+        
+      # 4. ⚠️ 빌드된 결과물을 GitHub Pages에 배포
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 빌드 결과물이 생성되는 폴더 경로를 정확하게 지정해야 합니다.
+          publish_dir: ./ToDoList/build # ⬅️ (수정!) CRA는 build, Vite는 dist 입니다.
