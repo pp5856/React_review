@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 10px;
 
-  width: 390px;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
   margin: 0 auto;
 }
