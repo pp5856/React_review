@@ -33,21 +33,17 @@ jobs:
           # 자신의 프로젝트와 호환되는 Node.js 버전을 적어주세요.
           node-version: '20'
 
-      # 3. ⚠️ 프로젝트 폴더로 이동, 의존성 설치 및 빌드
+      # 3. 프로젝트 폴더로 이동, 의존성 설치 및 빌드
       - name: Install dependencies and build
         run: |
-          cd ToDoList  # ⬅️ (수정!) 실제 리액트 프로젝트 폴더 경로를 적어주세요.
+          cd ToDoList
           npm install
           npm run build
-        # 만약 yarn을 사용한다면:
-        # cd my-react-projects/todo-app
-        # yarn install
-        # yarn build
         
-      # 4. ⚠️ 빌드된 결과물을 GitHub Pages에 배포
+      # 4. 빌드된 결과물을 GitHub Pages에 배포
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # 빌드 결과물이 생성되는 폴더 경로를 정확하게 지정해야 합니다.
-          publish_dir: ./ToDoList/build # ⬅️ (수정!) CRA는 build, Vite는 dist 입니다.
+          publish_dir: ./ToDoList/build
