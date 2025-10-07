@@ -1,7 +1,7 @@
 import ToDoItem from './ToDoItem';
 import './List.css';
 import { useState } from 'react';
-const List = ({ todos }) => {
+const List = ({ todos, onUpdate }) => {
   const [search, setSearch] = useState('');
 
   const getfilteredTodos = () => {
@@ -30,7 +30,9 @@ const List = ({ todos }) => {
       </div>
       <div className="todosWrapper">
         {filteredTodos.map((todo) => {
-          return <ToDoItem key={todo.id} {...todo}></ToDoItem>;
+          return (
+            <ToDoItem key={todo.id} {...todo} onUpdate={onUpdate}></ToDoItem>
+          );
         })}
       </div>
     </div>

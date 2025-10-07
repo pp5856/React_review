@@ -6,7 +6,7 @@ const Editor = ({ onCreate }) => {
   const inputRef = useRef();
 
   const onKeyDown = (e) => {
-    if (e.onKeyDown == 13) {
+    if (e.keyCode === 13) {
       onSubmit();
     }
   };

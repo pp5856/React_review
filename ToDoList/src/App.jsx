@@ -7,19 +7,19 @@ import { useState, useRef } from 'react';
 const mockData = [
   {
     id: 0,
-    isDoen: false,
+    isDone: false,
     content: 'React 공부하기',
     date: new Date().toLocaleDateString('sv-SE'),
   },
   {
     id: 1,
-    isDoen: false,
+    isDone: false,
     content: '9시 동아리 회의',
     date: new Date().toLocaleDateString('sv-SE'),
   },
   {
     id: 2,
-    isDoen: false,
+    isDone: false,
     content: '2시 PT',
     date: new Date().toLocaleDateString('sv-SE'),
   },
@@ -38,11 +38,20 @@ function App() {
     };
     setTodos([newTodo, ...todos]);
   };
+
+  const onUpdate = (targetId) => {
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo;
+      })
+    );
+  };
+
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} />
+      <List todos={todos} onUpdate={onUpdate} />
     </div>
   );
 }
