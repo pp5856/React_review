@@ -11,11 +11,16 @@
 .ToDoItem .ToDo {
   flex: 1;
 }
+.ToDo.done {
+  color: gray;
+  text-decoration: line-through;
+}
 
 .ToDoItem .Date {
   font-size: 14px;
   color: gray;
 }
+
 .ToDoItem button {
   padding: 3px;
   cursor: pointer;

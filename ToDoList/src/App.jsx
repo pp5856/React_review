@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import List from './components/List';
-import { useState, useRef, useReducer } from 'react';
+import { useState, useRef, useReducer, useCallback } from 'react';
 
 const mockData = [
   {
@@ -30,6 +30,7 @@ const mockData = [
     date: new Date().toLocaleDateString('sv-SE'),
   },
 ];
+
 function reducer(state, action) {
   switch (action.type) {
     case 'CREATE':
@@ -49,7 +50,7 @@ function App() {
   const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(4);
 
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     dispatch({
       type: 'CREATE',
       data: {
@@ -59,25 +60,25 @@ function App() {
         date: new Date().toLocaleDateString('sv-SE'),
       },
     });
-  };
+  }, []);
 
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type: 'UPDATE',
       data: {
         id: targetId,
       },
     });
-  };
+  }, []);
 
-  const onDelete = (targetId) => {
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: 'DELETE',
       data: {
         id: targetId,
       },
     });
-  };
+  }, []);
 
   return (
     <div className="App">
