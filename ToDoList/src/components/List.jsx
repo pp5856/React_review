@@ -1,26 +1,25 @@
 import ToDoItem from './ToDoItem';
 import './List.css';
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 const List = ({ todos, onUpdate, onDelete }) => {
   const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('');
   const [filteredTodos, setFilteredTodos] = useState(todos);
 
-  const onSearch = () => {
-    if (search == '') {
-      setFilteredTodos(todos);
-      return;
-    }
-
+  useEffect(() => {
     setFilteredTodos(
-      todos.filter((todo) => {
-        return todo.content.toLowerCase().includes(search.toLowerCase());
-      })
+      todos.filter((todo) =>
+        todo.content.toLowerCase().includes(filter.toLowerCase())
+      )
     );
-    return;
+  }, [todos, filter]);
+
+  const onSearch = () => {
+    setFilter(search);
   };
 
   const onKeyDown = (e) => {
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       onSearch();
     }
   };
