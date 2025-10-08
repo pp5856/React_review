@@ -1,19 +1,29 @@
 import ToDoItem from './ToDoItem';
 import './List.css';
-import { useState, useMemo, use } from 'react';
+import { useState, useMemo, useRef } from 'react';
 const List = ({ todos, onUpdate, onDelete }) => {
   const [search, setSearch] = useState('');
+  const [filteredTodos, setFilteredTodos] = useState(todos);
 
-  const getfilteredTodos = () => {
+  const onSearch = () => {
     if (search == '') {
-      return todos;
+      setFilteredTodos(todos);
+      return;
     }
 
-    return todos.filter((todo) => {
-      return todo.content.toLowerCase().includes(search.toLowerCase());
-    });
+    setFilteredTodos(
+      todos.filter((todo) => {
+        return todo.content.toLowerCase().includes(search.toLowerCase());
+      })
+    );
+    return;
   };
-  const filteredTodos = getfilteredTodos();
+
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      onSearch();
+    }
+  };
 
   const { totalList, doneList, notDoneList } = useMemo(() => {
     const totalList = todos.length;
@@ -36,9 +46,10 @@ const List = ({ todos, onUpdate, onDelete }) => {
           onChange={(e) => {
             setSearch(e.target.value);
           }}
+          onKeyDown={onKeyDown}
           placeholder="검색어를 입력해주세요"
         ></input>
-        <button>검색</button>
+        <button onClick={onSearch}>검색</button>
       </div>
       <div className="todosWrapper">
         {filteredTodos.map((todo) => {
