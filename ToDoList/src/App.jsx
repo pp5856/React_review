@@ -2,7 +2,19 @@ import './App.css';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import List from './components/List';
-import { useState, useRef, useReducer, useCallback } from 'react';
+import {
+  useState,
+  useRef,
+  useReducer,
+  useCallback,
+  usememo,
+  useMemo,
+  memo,
+} from 'react';
+import { createContext } from 'react';
+
+export const TodoStateContext = createContext();
+export const TododispatchContext = createContext();
 
 const mockData = [
   {
@@ -80,11 +92,19 @@ function App() {
     });
   }, []);
 
+  const memoizedDispatch = useMemo(() => {
+    return { onCreate, onDelete, onUpdate };
+  }, []);
+
   return (
     <div className="App">
       <Header />
-      <Editor onCreate={onCreate} />
-      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
+      <TodoStateContext.Provider value={todos}>
+        <TododispatchContext.Provider value={memoizedDispatch}>
+          <Editor />
+          <List />
+        </TododispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 }

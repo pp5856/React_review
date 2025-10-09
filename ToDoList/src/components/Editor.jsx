@@ -1,7 +1,8 @@
 import './Editor.css';
-import { useState, useRef } from 'react';
-
-const Editor = ({ onCreate }) => {
+import { useState, useRef, useContext } from 'react';
+import { TododispatchContext } from '../App';
+const Editor = () => {
+  const onCreate = useContext(TododispatchContext);
   const [content, setContent] = useState('');
   const inputRef = useRef();
 
@@ -23,6 +24,7 @@ const Editor = ({ onCreate }) => {
   const onChangeContent = (e) => {
     setContent(e.target.value);
   };
+
   return (
     <div className="Editor">
       <input
